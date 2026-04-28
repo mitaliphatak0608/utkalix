@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduKhel – Gamified Learning for Rural India</title>
+  <meta name="description"
+    content="EduKhel is a gamified, offline-first learning platform for rural students across India. Earn XP, badges, and climb leaderboards." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <div id="app-frame">
+
+    <!-- ===================== SPLASH ===================== -->
+    <div id="screen-splash" class="screen active splash-screen">
+      <div class="splash-bg"></div>
+      <div class="splash-content">
+        <div class="splash-logo-ring">
+          <img src="mascot.svg" alt="EduKhel Mascot" class="splash-mascot" />
+        </div>
+        <h1 class="splash-title">EduKhel</h1>
+        <p class="splash-tagline">पढ़ो, खेलो, बढ़ो 🚀</p>
+        <p class="splash-sub">Gamified Learning for Rural India</p>
+        <div class="splash-badges">
+          <span class="badge-pill">🏆 Offline First</span>
+          <span class="badge-pill">🗣️ 2 Languages</span>
+          <span class="badge-pill">🤖 Gemini AI</span>
+        </div>
+        <button class="btn-primary splash-cta" onclick="showScreen('screen-role-pick')">Get Started →</button>
+      </div>
+      <div class="splash-wave"></div>
+    </div>
+
+    <!-- ===================== ROLE PICKER ===================== -->
+    <div id="screen-role-pick" class="screen">
+      <div class="rp-bg"></div>
+      <div class="rp-content">
+        <div class="rp-logo">
+          <img src="mascot.svg" alt="EduKhel" class="rp-mascot" />
+          <h1 class="rp-title">EduKhel</h1>
+          <p class="rp-sub">Who are you today?</p>
+        </div>
+
+        <div class="rp-cards">
+          <!-- Student Card -->
+          <button class="rp-card rp-student" onclick="goToStudentAuth()" id="rp-student-btn">
+            <div class="rp-card-glow student-glow"></div>
+            <div class="rp-card-icon-wrap student-icon-wrap">
+              <span class="rp-big-icon">🎓</span>
+            </div>
+            <div class="rp-card-body">
+              <h2>I'm a Student</h2>
+              <p>Learn, play quizzes, earn XP &amp; badges</p>
+              <div class="rp-card-pills">
+                <span>📚 Study</span><span>🏆 Compete</span><span>⭐ Level Up</span>
+              </div>
+            </div>
+            <div class="rp-card-arrow">→</div>
+          </button>
+
+          <!-- Teacher Card -->
+          <button class="rp-card rp-teacher" onclick="goToTeacherAuth()" id="rp-teacher-btn">
+            <div class="rp-card-glow teacher-glow"></div>
+            <div class="rp-card-icon-wrap teacher-icon-wrap">
+              <span class="rp-big-icon">👩‍🏫</span>
+            </div>
+            <div class="rp-card-body">
+              <h2>I'm a Teacher</h2>
+              <p>Manage class, assign quizzes &amp; track progress</p>
+              <div class="rp-card-pills">
+                <span>📊 Dashboard</span><span>📝 Assign</span><span>🤖 Gemini AI</span>
+              </div>
+            </div>
+            <div class="rp-card-arrow">→</div>
+          </button>
+        </div>
+
+        <button class="rp-back-splash" onclick="showScreen('screen-splash')">← Back to Home</button>
+      </div>
+    </div>
+
+    <!-- ===================== STUDENT AUTH ===================== -->
+    <div id="screen-student-auth" class="screen student-auth-screen">
+      <div class="sa-bg-art"></div>
+
+      <!-- Floating XP badges for student vibe -->
+      <div class="sa-float-badge badge-f1">⭐ +20 XP</div>
+      <div class="sa-float-badge badge-f2">🏆 Level Up!</div>
+      <div class="sa-float-badge badge-f3">🔥 Streak!</div>
+
+      <div class="sa-header">
+        <button class="back-btn" onclick="showScreen('screen-role-pick')">←</button>
+        <div class="sa-logo">
+          <span>🎓</span>
+          <span class="sa-logo-text">Student Portal</span>
+        </div>
+        <div></div>
+      </div>
+
+      <!-- Tab toggle -->
+      <div class="sa-tab-wrap">
+        <div class="sa-tabs">
+          <button class="sa-tab active" id="sa-tab-login" onclick="switchStudentTab('login')">Login</button>
+          <button class="sa-tab" id="sa-tab-signup" onclick="switchStudentTab('signup')">Sign Up</button>
+        </div>
+      </div>
+
+      <div class="sa-body">
+        <!-- ===== STUDENT LOGIN ===== -->
+        <div id="sa-login-panel">
+          <div class="sa-welcome">
+            <div class="sa-welcome-emoji">👋</div>
+            <h2>Welcome Back, Champion!</h2>
+            <p>Enter your mobile number — your quest awaits!</p>
+          </div>
+
+          <div class="sa-xp-preview">
+            <div class="sa-xp-item"><span>🔥</span><strong>Streak</strong></div>
+            <div class="sa-xp-divider"></div>
+            <div class="sa-xp-item"><span>⭐</span><strong>XP Points</strong></div>
+            <div class="sa-xp-divider"></div>
+            <div class="sa-xp-item"><span>🏆</span><strong>Leaderboard</strong></div>
+          </div>
+
+          <div class="sa-input-group">
+            <label class="sa-label">📱 Mobile Number</label>
+            <div class="sa-phone-input">
+              <span class="sa-country-code">🇮🇳 +91</span>
+              <input type="tel" id="s-phone-login" placeholder="Enter 10-digit number" maxlength="10"
+                oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
+            </div>
+          </div>
+
+          <div class="sa-demo-hint">
+            💡 Demo: <strong>9876543210</strong> → Arjun Singh (Grade 7A, 1240 XP)
+          </div>
+
+          <button class="sa-btn-primary" onclick="studentSendOTP('login')" id="s-send-otp-btn">
+            <span>Send OTP</span> <span class="sa-btn-arrow">→</span>
+          </button>
+
+          <p class="sa-switch-hint">New student? <a onclick="switchStudentTab('signup')" class="sa-link">Create account
+              →</a></p>
+        </div>
+
+        <!-- ===== STUDENT SIGNUP ===== -->
+        <div id="sa-signup-panel" class="hidden">
+          <h2 class="sa-form-title">Join EduKhel! 🚀</h2>
+          <p class="sa-form-sub">Fill your details to start earning XP</p>
+
+          <div class="sa-input-group">
+            <label class="sa-label">📛 Full Name</label>
+            <input type="text" id="s-su-name" class="sa-text-input" placeholder="e.g. Arjun Singh" />
+          </div>
+          <div class="sa-input-row">
+            <div class="sa-input-group half">
+              <label class="sa-label">🏫 Grade</label>
+              <select id="s-su-grade" class="sa-text-input">
+                <option value="">Select</option>
+                <option>Grade 5</option>
+                <option>Grade 6</option>
+                <option selected>Grade 7</option>
+                <option>Grade 8</option>
+                <option>Grade 9</option>
+                <option>Grade 10</option>
+              </select>
+            </div>
+            <div class="sa-input-group half">
+              <label class="sa-label">🔤 Section</label>
+              <select id="s-su-section" class="sa-text-input">
+                <option value="">Select</option>
+                <option selected>A</option>
+                <option>B</option>
+                <option>C</option>
+                <option>D</option>
+              </select>
+            </div>
+          </div>
+          <div class="sa-input-group">
+            <label class="sa-label">🏛️ School</label>
+            <input type="text" id="s-su-school" class="sa-text-input" placeholder="e.g. Govt. Primary School, Rampur" />
+          </div>
+          <div class="sa-input-group">
+            <label class="sa-label">🌐 Language</label>
+            <div class="sa-lang-grid" id="s-lang-grid">
+              <button class="sa-lang-btn active" onclick="selectStudentLang(this)">हिंदी</button>
+              <button class="sa-lang-btn" onclick="selectStudentLang(this)">मराठी</button>
+              <button class="sa-lang-btn" onclick="selectStudentLang(this)">বাংলা</button>
+              <button class="sa-lang-btn" onclick="selectStudentLang(this)">తెలుగు</button>
+              <button class="sa-lang-btn" onclick="selectStudentLang(this)">தமிழ்</button>
+              <button class="sa-lang-btn" onclick="selectStudentLang(this)">English</button>
+            </div>
+          </div>
+          <div class="sa-input-group">
+            <label class="sa-label">📱 Mobile Number</label>
+            <div class="sa-phone-input">
+              <span class="sa-country-code">🇮🇳 +91</span>
+              <input type="tel" id="s-su-phone" placeholder="10-digit number" maxlength="10"
+                oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
+            </div>
+          </div>
+
+          <button class="sa-btn-primary" onclick="studentSendOTP('signup')">
+            <span>Create Account &amp; Get OTP</span> <span class="sa-btn-arrow">→</span>
+          </button>
+          <p class="sa-switch-hint">Already registered? <a onclick="switchStudentTab('login')" class="sa-link">Login
+              →</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== TEACHER AUTH ===================== -->
+    <div id="screen-teacher-auth" class="screen teacher-auth-screen">
+      <div class="ta-bg-art"></div>
+
+      <div class="ta-header">
+        <button class="back-btn white" onclick="showScreen('screen-role-pick')">←</button>
+        <div class="ta-logo">
+          <span>👩‍🏫</span>
+          <span class="ta-logo-text">Teacher Portal</span>
+        </div>
+        <div></div>
+      </div>
+
+      <div class="ta-hero">
+        <div class="ta-hero-icon">🏫</div>
+        <h2 class="ta-hero-title">Educator Dashboard</h2>
+        <p class="ta-hero-sub">Empower your students with data-driven teaching</p>
+        <div class="ta-feature-pills">
+          <span class="ta-pill">📊 Analytics</span>
+          <span class="ta-pill">🤖 Gemini AI</span>
+          <span class="ta-pill">📝 Quiz Assign</span>
+        </div>
+      </div>
+
+      <!-- Tab toggle -->
+      <div class="ta-tabs-wrap">
+        <div class="ta-tabs">
+          <button class="ta-tab active" id="ta-tab-login" onclick="switchTeacherTab('login')">Login</button>
+          <button class="ta-tab" id="ta-tab-signup" onclick="switchTeacherTab('signup')">Register</button>
+        </div>
+      </div>
+
+      <div class="ta-body">
+        <!-- ===== TEACHER LOGIN ===== -->
+        <div id="ta-login-panel">
+
+          <!-- Credential fields -->
+          <div class="ta-input-group">
+            <label class="ta-label">📱 Mobile Number</label>
+            <div class="ta-phone-input">
+              <span class="ta-country-code">🇮🇳 +91</span>
+              <input type="tel" id="t-phone-login" placeholder="Registered mobile number" maxlength="10"
+                oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
+            </div>
+          </div>
+
+          <div class="ta-input-group">
+            <label class="ta-label">🔒 Password</label>
+            <div class="ta-password-input" id="ta-pwd-wrap">
+              <input type="password" id="t-password-login" class="ta-pwd-field" placeholder="Enter your password"
+                onkeydown="if(event.key==='Enter')teacherPasswordLogin()" />
+              <button class="ta-eye-btn" onclick="toggleTeacherPwd()" id="ta-eye-btn" type="button">👁</button>
+            </div>
+          </div>
+
+          <div id="ta-login-error" class="ta-error-msg hidden">
+            ❌ Incorrect credentials. Please try again.
+          </div>
+
+          <div class="ta-demo-hint">
+            💡 Demo credentials:<br>
+            📱 <strong>9000000001</strong> &nbsp;|&nbsp; 🔒 <strong>Savitri@123</strong><br>
+            <small style="opacity:0.6">(Savitri Ma'am · Grade 7 Mathematics)</small>
+          </div>
+
+          <button class="ta-btn-primary" onclick="teacherPasswordLogin()" id="t-login-btn">
+            🔐 Login to Dashboard
+          </button>
+
+          <div class="ta-divider"><span>or</span></div>
+          <p class="ta-switch-hint">New educator? <a onclick="switchTeacherTab('signup')" class="ta-link">Register your
+              account →</a></p>
+        </div>
+
+        <!-- ===== TEACHER SIGNUP/REGISTER ===== -->
+        <div id="ta-signup-panel" class="hidden">
+          <div class="ta-input-group">
+            <label class="ta-label">📛 Full Name</label>
+            <input type="text" id="t-su-name" class="ta-text-input" placeholder="e.g. Savitri Devi" />
+          </div>
+          <div class="ta-input-group">
+            <label class="ta-label">🏫 School Name</label>
+            <input type="text" id="t-su-school" class="ta-text-input" placeholder="e.g. Govt. Middle School, Rampur" />
+          </div>
+          <div class="ta-input-row">
+            <div class="ta-input-group half">
+              <label class="ta-label">📚 Subject</label>
+              <select id="t-su-subject" class="ta-text-input">
+                <option value="">Select</option>
+                <option>Mathematics</option>
+                <option>Science</option>
+                <option>Hindi</option>
+                <option>Social Studies</option>
+                <option>All Subjects</option>
+              </select>
+            </div>
+            <div class="ta-input-group half">
+              <label class="ta-label">🏫 Grade</label>
+              <select id="t-su-grade" class="ta-text-input">
+                <option value="">Select</option>
+                <option selected>Grade 7</option>
+                <option>Grade 8</option>
+                <option>Grade 9-10</option>
+              </select>
+            </div>
+          </div>
+          <div class="ta-input-group">
+            <label class="ta-label">🪪 Employee / Teacher ID</label>
+            <input type="text" id="t-su-empid" class="ta-text-input" placeholder="e.g. MAHA-TCH-2024-001" />
+          </div>
+          <div class="ta-input-group">
+            <label class="ta-label">📱 Mobile Number</label>
+            <div class="ta-phone-input">
+              <span class="ta-country-code">🇮🇳 +91</span>
+              <input type="tel" id="t-su-phone" placeholder="10-digit number" maxlength="10"
+                oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
+            </div>
+          </div>
+          <div class="ta-input-group">
+            <label class="ta-label">🔒 Set Password</label>
+            <div class="ta-password-input">
+              <input type="password" id="t-su-password" class="ta-pwd-field" placeholder="Min 8 characters" />
+              <button class="ta-eye-btn" onclick="toggleTeacherRegPwd()" type="button">👁</button>
+            </div>
+          </div>
+          <div class="ta-input-group">
+            <label class="ta-label">🔒 Confirm Password</label>
+            <input type="password" id="t-su-confirm-pwd" class="ta-text-input" placeholder="Re-enter password" />
+          </div>
+
+          <button class="ta-btn-primary" onclick="teacherRegisterWithOTP()">
+            Register &amp; Verify OTP →
+          </button>
+          <p class="ta-switch-hint">Already registered? <a onclick="switchTeacherTab('login')" class="ta-link">Login
+              →</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== OTP SCREEN ===================== -->
+    <div id="screen-otp" class="screen">
+      <div class="otp-screen-bg" id="otp-screen-bg"></div>
+      <div class="login-header">
+        <button class="back-btn" id="otp-back-btn" onclick="goBackFromOtp()">←</button>
+        <span class="screen-label">Verify OTP</span>
+      </div>
+      <div class="otp-verify-body">
+        <div class="otp-top-icon" id="otp-role-icon">🔐</div>
+        <h2 class="login-title">Enter OTP</h2>
+        <p class="otp-desc">We sent a 6-digit code to<br><strong id="otp-phone-display">+91 XXXXX</strong></p>
+        <p class="otp-demo-hint">📱 Demo OTP: <strong>1 2 3 4 5 6</strong></p>
+        <div class="otp-boxes-6">
+          <input type="text" class="otp-box" inputmode="numeric" maxlength="1" id="otp0" oninput="otpNext6(this,0)"
+            onkeydown="otpBack(this,0)" />
+          <input type="text" class="otp-box" inputmode="numeric" maxlength="1" id="otp1" oninput="otpNext6(this,1)"
+            onkeydown="otpBack(this,1)" />
+          <input type="text" class="otp-box" inputmode="numeric" maxlength="1" id="otp2" oninput="otpNext6(this,2)"
+            onkeydown="otpBack(this,2)" />
+          <input type="text" class="otp-box" inputmode="numeric" maxlength="1" id="otp3" oninput="otpNext6(this,3)"
+            onkeydown="otpBack(this,3)" />
+          <input type="text" class="otp-box" inputmode="numeric" maxlength="1" id="otp4" oninput="otpNext6(this,4)"
+            onkeydown="otpBack(this,4)" />
+          <input type="text" class="otp-box" inputmode="numeric" maxlength="1" id="otp5" oninput="otpNext6(this,5)"
+            onkeydown="otpBack(this,5)" />
+        </div>
+        <div id="otp-error" class="otp-error hidden">❌ Incorrect OTP. Please try again.</div>
+        <button class="btn-primary full-w" onclick="verifyOTP()" id="verify-otp-btn">Verify &amp; Continue ✓</button>
+        <div class="otp-timer-row">
+          <span id="otp-timer-text">Resend OTP in <strong id="otp-countdown">30</strong>s</span>
+          <button class="resend-btn hidden" id="resend-btn" onclick="resendOTP()">Resend OTP</button>
+        </div>
+        <div class="otp-trust-row">🔒 Secure · Encrypted · Never shared</div>
+      </div>
+    </div>
+
+    <!-- ===================== STUDENT HOME ===================== -->
+    <div id="screen-home" class="screen">
+      <div class="status-bar"><span>9:41 AM</span><span>📶 🔋</span></div>
+      <div class="home-header">
+        <div class="home-user">
+          <div class="avatar" id="home-avatar-txt">A</div>
+          <div>
+            <p class="greeting" id="home-greeting">नमस्ते, Arjun! 👋</p>
+            <p class="grade-label" id="home-grade">Grade 7 · Section A</p>
+          </div>
+        </div>
+        <div class="home-streak">
+          <span class="streak-fire">🔥</span>
+          <span class="streak-count" id="streak-count">14</span>
+          <span class="streak-lbl">days</span>
+        </div>
+      </div>
+
+      <div class="xp-bar-section">
+        <div class="xp-info">
+          <span class="xp-level" id="xp-level-txt">⭐ Level 12</span>
+          <span class="xp-pts" id="xp-pts-txt">1,240 / 1,500 XP</span>
+        </div>
+        <div class="xp-bar-track">
+          <div class="xp-bar-fill" id="xp-bar-fill" style="width:0%"></div>
+        </div>
+      </div>
+
+      <div class="badge-strip" id="home-badge-strip"></div>
+
+      <div class="section-title">Today's Lessons</div>
+      <div class="subject-grid">
+        <div class="subject-card math" onclick="currentQuizSubject='math';showQuizSelect()" id="quiz-start-btn">
+          <div class="subj-icon">➕</div>
+          <div class="subj-name">Mathematics</div>
+          <div class="subj-progress" id="home-math-prog">Ch 4: Fractions</div>
+          <div class="subj-bar">
+            <div id="home-math-bar" style="width:0%"></div>
+          </div>
+          <div class="subj-xp">+100 XP</div>
+        </div>
+        <div class="subject-card science" onclick="currentQuizSubject='science';showQuizSelect()">
+          <div class="subj-icon">🔬</div>
+          <div class="subj-name">Science</div>
+          <div class="subj-progress" id="home-science-prog">Ch 2: Plant Life</div>
+          <div class="subj-bar">
+            <div id="home-sci-bar" style="width:0%"></div>
+          </div>
+          <div class="subj-xp">+100 XP</div>
+        </div>
+        <div class="subject-card hindi" onclick="currentQuizSubject='hindi';showQuizSelect()">
+          <div class="subj-icon">📝</div>
+          <div class="subj-name">हिंदी</div>
+          <div class="subj-progress" id="home-hindi-prog">Ch 5: व्याकरण</div>
+          <div class="subj-bar">
+            <div id="home-hindi-bar" style="width:0%"></div>
+          </div>
+          <div class="subj-xp">+100 XP</div>
+        </div>
+        <div class="subject-card daily-card" onclick="showQuizSelect()">
+          <div class="subj-icon">🎯</div>
+          <div class="subj-name">Daily Challenge</div>
+          <div class="subj-progress">Speed Quiz — All Subjects</div>
+          <div class="subj-bar">
+            <div style="width:0%;background:var(--accent)"></div>
+          </div>
+          <div class="subj-xp">+200 XP 🏅</div>
+        </div>
+      </div>
+
+      <div class="daily-challenge-card">
+        <div class="dc-left">
+          <p class="dc-label">🎯 Daily Challenge</p>
+          <p class="dc-title">Story Quiz: Plant & Fractions</p>
+          <p class="dc-reward">🏅 +200 XP · Special Badge</p>
+        </div>
+        <button class="dc-play-btn" onclick="showQuizSelect()">Play</button>
+      </div>
+
+      <div class="bottom-nav">
+        <button class="nav-btn active" onclick="showScreen('screen-home')">🏠<span>Home</span></button>
+        <button class="nav-btn" onclick="showScreen('screen-leaderboard')">🏆<span>Rank</span></button>
+        <button class="nav-btn" onclick="showScreen('screen-community')">👥<span>Group</span></button>
+        <button class="nav-btn" onclick="showScreen('screen-profile')">👤<span>Profile</span></button>
+      </div>
+    </div>
+
+    <!-- ===================== QUIZ SELECT SCREEN ===================== -->
+    <div id="screen-quiz-select" class="screen">
+      <div class="qs-header">
+        <button class="back-btn" onclick="showScreen('screen-home')">←</button>
+        <h2>Choose a Quiz</h2>
+        <div></div>
+      </div>
+      <div class="qs-body">
+        <p class="qs-sub">Pick a subject and start earning XP!</p>
+        <div class="qs-cards">
+          <div class="qs-card math-card" onclick="startQuiz('math')">
+            <div class="qs-emoji">➕</div>
+            <div class="qs-info">
+              <strong>Mathematics</strong>
+              <small>Ch 4: Fractions · 5 Questions</small>
+              <div class="qs-prog-row">
+                <div class="qs-bar">
+                  <div id="qs-math-bar" style="width:0%"></div>
+                </div>
+                <span id="qs-math-pct">0%</span>
+              </div>
+            </div>
+            <div class="qs-xp-pill">+100 XP</div>
+          </div>
+          <div class="qs-card sci-card" onclick="startQuiz('science')">
+            <div class="qs-emoji">🔬</div>
+            <div class="qs-info">
+              <strong>Science</strong>
+              <small>Ch 2: Plant Life · 5 Questions</small>
+              <div class="qs-prog-row">
+                <div class="qs-bar">
+                  <div id="qs-sci-bar" style="width:0%"></div>
+                </div>
+                <span id="qs-sci-pct">0%</span>
+              </div>
+            </div>
+            <div class="qs-xp-pill">+100 XP</div>
+          </div>
+          <div class="qs-card hindi-card" onclick="startQuiz('hindi')">
+            <div class="qs-emoji">📝</div>
+            <div class="qs-info">
+              <strong>हिंदी व्याकरण</strong>
+              <small>Ch 5: Grammar · 5 Questions</small>
+              <div class="qs-prog-row">
+                <div class="qs-bar">
+                  <div id="qs-hindi-bar" style="width:0%"></div>
+                </div>
+                <span id="qs-hindi-pct">0%</span>
+              </div>
+            </div>
+            <div class="qs-xp-pill">+100 XP</div>
+          </div>
+        </div>
+        <div class="qs-offline-tag">📵 All quizzes work offline</div>
+      </div>
+    </div>
+
+    <!-- ===================== QUIZ SCREEN ===================== -->
+    <div id="screen-quiz" class="screen">
+      <div class="quiz-header">
+        <button class="back-btn" onclick="showScreen('screen-quiz-select')">←</button>
+        <div class="quiz-progress-bar">
+          <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
+        </div>
+        <div class="quiz-xp-pill">⭐ <span id="quiz-xp-score">0</span> XP</div>
+      </div>
+      <div class="quiz-story-panel">
+        <div class="story-character">🦁</div>
+        <div class="story-bubble" id="story-bubble">
+          <p id="story-text">Loading question…</p>
+        </div>
+      </div>
+      <div class="voice-play-btn" onclick="playVoice()" id="voice-btn">
+        <span>🔊</span> Play in Hindi
+      </div>
+      <div class="quiz-question-box">
+        <p class="quiz-q-label">Question <span id="q-num">1</span> of <span id="q-total">5</span></p>
+        <p class="quiz-question" id="quiz-question">Loading…</p>
+      </div>
+      <div class="options-grid" id="options-grid"></div>
+
+      <div id="result-overlay" class="result-overlay hidden">
+        <div class="result-card">
+          <div class="result-emoji" id="result-emoji">🎉</div>
+          <h3 id="result-title">Correct!</h3>
+          <p id="result-msg">+20 XP earned!</p>
+          <button class="btn-primary" onclick="nextQuestion()">Next Question →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== QUIZ COMPLETE ===================== -->
+    <div id="screen-quiz-done" class="screen">
+      <div class="quiz-done-bg"></div>
+      <div class="quiz-done-content">
+        <div class="confetti-emojis">🎊🏆🌟🎉✨</div>
+        <h2 class="qd-title">Quiz Complete!</h2>
+        <div class="qd-score-ring">
+          <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="42" fill="none" stroke="#ffffff22" stroke-width="8" />
+            <circle cx="50" cy="50" r="42" fill="none" stroke="#FFD700" stroke-width="8" stroke-dasharray="264"
+              stroke-dashoffset="52" stroke-linecap="round" transform="rotate(-90 50 50)" id="quiz-done-arc" />
+          </svg>
+          <div class="score-inner">
+            <span class="score-num" id="qd-score-num">4/5</span>
+            <span class="score-lbl">Correct</span>
+          </div>
+        </div>
+        <div class="qd-stats">
+          <div class="qd-stat"><span>⭐</span><strong id="qd-xp-earned">+80</strong><small>XP Earned</small></div>
+          <div class="qd-stat"><span>⚡</span><strong id="qd-accuracy">80%</strong><small>Accuracy</small></div>
+          <div class="qd-stat"><span>🔥</span><strong id="qd-streak-now">🔥</strong><small>Streak</small></div>
+        </div>
+        <div class="new-badge-row hidden" id="qd-badge-row">
+          <span class="new-badge" id="qd-new-badge">🏅 New Badge!</span>
+        </div>
+        <div class="qd-buttons">
+          <button class="btn-secondary" onclick="showScreen('screen-home')">🏠 Home</button>
+          <button class="btn-primary" onclick="showScreen('screen-leaderboard')">🏆 Leaderboard</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== LEADERBOARD ===================== -->
+    <div id="screen-leaderboard" class="screen">
+      <div class="lb-header">
+        <button class="back-btn" onclick="showScreen('screen-home')">←</button>
+        <h2>Leaderboard 🏆</h2>
+        <div></div>
+      </div>
+      <div class="lb-tab-row">
+        <button class="lb-tab active" onclick="switchLbTab(this,'class')">My Class</button>
+        <button class="lb-tab" onclick="switchLbTab(this,'village')">Village</button>
+        <button class="lb-tab" onclick="switchLbTab(this,'district')">District</button>
+      </div>
+      <div class="lb-podium" id="lb-podium"></div>
+      <div class="lb-list" id="lb-list"></div>
+      <div class="bottom-nav">
+        <button class="nav-btn" onclick="showScreen('screen-home')">🏠<span>Home</span></button>
+        <button class="nav-btn active" onclick="showScreen('screen-leaderboard')">🏆<span>Rank</span></button>
+        <button class="nav-btn" onclick="showScreen('screen-community')">👥<span>Group</span></button>
+        <button class="nav-btn" onclick="showScreen('screen-profile')">👤<span>Profile</span></button>
+      </div>
+    </div>
+
+    <!-- ===================== COMMUNITY ===================== -->
+    <div id="screen-community" class="screen">
+      <div class="cm-header">
+        <button class="back-btn" onclick="showScreen('screen-home')">←</button>
+        <h2>Community Mode 👥</h2>
+        <span class="offline-pill">📵 Offline</span>
+      </div>
+      <div class="cm-features">
+        <div class="cm-card" onclick="showScreen('screen-group-quiz')">
+          <div class="cm-icon">🎮</div>
+          <div><strong>Host Group Quiz</strong>
+            <p>Start a shared quiz for your class or village group</p>
+          </div>
+          <span class="cm-arrow">→</span>
+        </div>
+        <div class="cm-card" onclick="showScreen('screen-group-quiz')">
+          <div class="cm-icon">📡</div>
+          <div><strong>Join Session</strong>
+            <p>Join a running session via Bluetooth / local Wi-Fi</p>
+          </div>
+          <span class="cm-arrow">→</span>
+        </div>
+        <div class="cm-card">
+          <div class="cm-icon">🏅</div>
+          <div><strong>Group Leaderboard</strong>
+            <p>See how your group stacks up this week</p>
+          </div>
+          <span class="cm-arrow">→</span>
+        </div>
+      </div>
+      <div class="cm-active-sessions">
+        <p class="section-title">Active Sessions Nearby</p>
+        <div class="session-card">
+          <div class="sess-dot"></div>
+          <div><strong>Rampur Primary School – Room 3</strong>
+            <p>Math Quiz · 12 students · Started 5 min ago</p>
+          </div>
+          <button class="join-btn" onclick="showScreen('screen-group-quiz')">Join</button>
+        </div>
+        <div class="session-card">
+          <div class="sess-dot" style="background:#aaa"></div>
+          <div><strong>Village Chaupal Evening Session</strong>
+            <p>Science · 8 students · Waiting to start</p>
+          </div>
+          <button class="join-btn" onclick="showScreen('screen-group-quiz')">Join</button>
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <button class="nav-btn" onclick="showScreen('screen-home')">🏠<span>Home</span></button>
+        <button class="nav-btn" onclick="showScreen('screen-leaderboard')">🏆<span>Rank</span></button>
+        <button class="nav-btn active" onclick="showScreen('screen-community')">👥<span>Group</span></button>
+        <button class="nav-btn" onclick="showScreen('screen-profile')">👤<span>Profile</span></button>
+      </div>
+    </div>
+
+    <!-- ===================== GROUP QUIZ ===================== -->
+    <div id="screen-group-quiz" class="screen">
+      <div class="gq-header">
+        <button class="back-btn" onclick="showScreen('screen-community')">←</button>
+        <h2>Group Quiz 🎮</h2>
+        <span class="live-pill">🔴 LIVE</span>
+      </div>
+      <div class="gq-players">
+        <div class="gp-av" style="background:#E91E8C">P</div>
+        <div class="gp-av" style="background:#FF6B35">R</div>
+        <div class="gp-av active-player" style="background:#00ACC1">A</div>
+        <div class="gp-av" style="background:#43A047">S</div>
+        <div class="gp-av" style="background:#7B1FA2">M</div>
+        <span class="more-players">+7</span>
+      </div>
+      <div class="gq-question-card">
+        <p class="gq-timer" id="gq-timer">⏱ 15s</p>
+        <p class="gq-question">Which river is known as the "Sorrow of Bihar"?</p>
+        <div class="gq-options">
+          <button class="gq-opt" onclick="gqAnswer(this, false)">A) Ganga</button>
+          <button class="gq-opt correct-answer" onclick="gqAnswer(this, true)">B) Kosi ✓</button>
+          <button class="gq-opt" onclick="gqAnswer(this, false)">C) Yamuna</button>
+          <button class="gq-opt" onclick="gqAnswer(this, false)">D) Godavari</button>
+        </div>
+      </div>
+      <div class="gq-scoreboard">
+        <p class="section-title">Live Scores</p>
+        <div class="gq-score-row"><span>Arjun (You)</span>
+          <div class="gq-score-bar">
+            <div style="width:80%"></div>
+          </div><strong>80</strong>
+        </div>
+        <div class="gq-score-row"><span>Priya</span>
+          <div class="gq-score-bar">
+            <div style="width:65%" class="bar-pink"></div>
+          </div><strong>65</strong>
+        </div>
+        <div class="gq-score-row"><span>Ravi</span>
+          <div class="gq-score-bar">
+            <div style="width:50%" class="bar-orange"></div>
+          </div><strong>50</strong>
+        </div>
+        <div class="gq-score-row"><span>Sunita</span>
+          <div class="gq-score-bar">
+            <div style="width:70%" class="bar-green"></div>
+          </div><strong>70</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== TEACHER PANEL ===================== -->
+    <div id="screen-teacher" class="screen">
+      <div class="tp-header">
+        <div class="tp-user">
+          <div class="avatar tp-av" id="tp-teacher-av">S</div>
+          <div>
+            <p class="tp-name" id="tp-teacher-name">Savitri Ma'am 👩‍🏫</p>
+            <p class="tp-role" id="tp-teacher-role">Class Teacher · Grade 7</p>
+          </div>
+        </div>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+      </div>
+
+      <div class="tp-stats-row">
+        <div class="tp-stat-card"><span class="tp-stat-num" id="tp-stat-students">34</span><span
+            class="tp-stat-lbl">Students</span></div>
+        <div class="tp-stat-card"><span class="tp-stat-num" id="tp-stat-avg">76%</span><span class="tp-stat-lbl">Avg
+            Score</span></div>
+        <div class="tp-stat-card"><span class="tp-stat-num" id="tp-stat-attendance">89%</span><span
+            class="tp-stat-lbl">Attendance</span></div>
+        <div class="tp-stat-card"><span class="tp-stat-num" id="tp-stat-quizzes">12</span><span
+            class="tp-stat-lbl">Quizzes</span></div>
+      </div>
+
+      <div class="tp-tabs">
+        <button class="tp-tab active" onclick="switchTpTab(this,'overview')">Overview</button>
+        <button class="tp-tab" onclick="switchTpTab(this,'students')">Students</button>
+        <button class="tp-tab" onclick="switchTpTab(this,'content')">Content</button>
+        <button class="tp-tab" onclick="switchTpTab(this,'gemini')">AI ✨</button>
+      </div>
+
+      <!-- Overview Tab -->
+      <div id="tp-tab-overview" class="tp-tab-content active">
+        <div class="heatmap-section">
+          <p class="section-title">Performance Heatmap</p>
+          <div class="heatmap-grid" id="heatmap-grid">
+            <div class="hm-label"></div>
+            <div class="hm-label">Math</div>
+            <div class="hm-label">Sci</div>
+            <div class="hm-label">Hindi</div>
+          </div>
+          <div class="hm-legend">
+            <span class="h1">Low</span><span class="h2"></span><span class="h3"></span><span class="h4"></span><span
+              class="h5">High</span>
+          </div>
+          <div class="attention-box hidden" id="attention-box">⚠️ Loading…</div>
+        </div>
+      </div>
+
+      <!-- Students Tab -->
+      <div id="tp-tab-students" class="tp-tab-content hidden">
+        <p class="section-title" style="padding-top:4px">All Students</p>
+        <div class="student-list" id="student-list"></div>
+      </div>
+
+      <!-- Content Tab -->
+      <div id="tp-tab-content" class="tp-tab-content hidden">
+        <div class="content-upload">
+          <p class="section-title">Upload Content</p>
+          <div class="upload-zone" onclick="document.getElementById('file-picker').click()">
+            <input type="file" id="file-picker" accept=".pdf,.mp4,.jpg" style="display:none"
+              onchange="showUploadSuccess()" />
+            <div class="upload-icon">📁</div>
+            <p>Tap to upload PDF, Video, or Image</p>
+            <small>Max 50MB · Offline cached</small>
+          </div>
+          <div id="upload-success" class="upload-success hidden">✅ Content uploaded &amp; cached offline!</div>
+
+          <div class="assign-section">
+            <p class="section-title">Assign Quiz to Class</p>
+            <select class="tp-select" id="tp-quiz-select">
+              <option value="math_fractions">Math: Fractions Quiz</option>
+              <option value="science_plants">Science: Plant Life Test</option>
+              <option value="hindi_grammar">Hindi: Grammar Test</option>
+            </select>
+            <select class="tp-select" id="tp-class-select">
+              <option>Grade 7 – Section A</option>
+              <option>Grade 7 – Section B</option>
+              <option>All Sections</option>
+            </select>
+            <button class="btn-primary" onclick="assignQuiz()">Assign →</button>
+            <div id="assign-success" class="upload-success hidden">✅ Quiz assigned! Students notified.</div>
+          </div>
+
+          <div class="assign-section">
+            <p class="section-title">Active Assignments</p>
+            <div id="assignment-list"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gemini AI Tab -->
+      <div id="tp-tab-gemini" class="tp-tab-content hidden">
+        <div class="gemini-panel">
+          <div class="gemini-header">
+            <span class="gemini-icon">🤖</span>
+            <div>
+              <strong>Gemini AI Assistant</strong>
+              <p>Generate questions, summaries &amp; personalised content</p>
+            </div>
+          </div>
+          <div class="gemini-chat" id="gemini-chat">
+            <div class="gc-msg bot">
+              <span>👋</span>
+              <p>Hi! I can help generate quiz questions, lesson summaries, or identify struggling students. Try asking
+                me something!</p>
+            </div>
+          </div>
+          <div class="gemini-quick-btns">
+            <button class="quick-btn" onclick="geminiQuery('Generate 5 MCQs on Fractions for Grade 7')">Generate
+              MCQs</button>
+            <button class="quick-btn" onclick="geminiQuery('Summarise Chapter 2 Plant Life in Hindi')">Hindi
+              Summary</button>
+            <button class="quick-btn" onclick="geminiQuery('Which students need attention?')">At-Risk Students</button>
+          </div>
+          <div class="gemini-input-row">
+            <input type="text" id="gemini-input" placeholder="Ask Gemini anything..." />
+            <button class="send-btn" onclick="sendGeminiMsg()">→</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== PROFILE SCREEN ===================== -->
+    <div id="screen-profile" class="screen">
+      <div class="profile-header-bg">
+        <button class="back-btn white" onclick="showScreen('screen-home')">←</button>
+        <div class="profile-av-large" id="profile-av-txt">A</div>
+        <h2 class="profile-name" id="profile-name-txt">Arjun Singh</h2>
+        <p class="profile-grade" id="profile-grade-txt">Grade 7 · Section A · Rampur Village</p>
+      </div>
+      <div class="profile-body">
+        <div class="profile-stats">
+          <div class="pstat"><strong id="profile-xp-val">1,240</strong><small>Total XP</small></div>
+          <div class="pstat"><strong id="profile-avg-val">82%</strong><small>Avg Score</small></div>
+          <div class="pstat"><strong id="profile-streak-val">14</strong><small>Day Streak</small></div>
+          <div class="pstat"><strong id="profile-badges-val">4</strong><small>Badges</small></div>
+        </div>
+        <div class="profile-badges">
+          <p class="section-title">My Badges</p>
+          <div class="badge-strip-lg" id="profile-badge-grid"></div>
+        </div>
+        <div class="sync-section">
+          <div class="sync-status-row">
+            <span>📶 Sync Status:</span>
+            <span class="sync-badge" id="sync-badge">Offline — 3 pending</span>
+          </div>
+          <button class="btn-secondary" onclick="simulateSync()" id="sync-btn">⟳ Sync Now</button>
+        </div>
+        <div class="profile-settings">
+          <button class="settings-row" onclick="showScreen('screen-login')">🔐 Change Account</button>
+          <button class="settings-row">📩 Download Lessons</button>
+          <button class="settings-row" onclick="logout()">🚪 Logout</button>
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <button class="nav-btn" onclick="showScreen('screen-home')">🏠<span>Home</span></button>
+        <button class="nav-btn" onclick="showScreen('screen-leaderboard')">🏆<span>Rank</span></button>
+        <button class="nav-btn" onclick="showScreen('screen-community')">👥<span>Group</span></button>
+        <button class="nav-btn active" onclick="showScreen('screen-profile')">👤<span>Profile</span></button>
+      </div>
+    </div>
+
+    <!-- ===================== STUDENT DETAIL MODAL ===================== -->
+    <div id="student-modal" class="student-modal hidden" onclick="if(event.target===this)closeStudentModal()">
+      <div class="sm-card">
+        <button class="sm-close" onclick="closeStudentModal()">✕</button>
+        <div class="sm-top">
+          <div class="sm-av" id="sm-av">A</div>
+          <div>
+            <h3 id="sm-name">Arjun Singh</h3>
+            <p id="sm-grade" class="sm-subtext">Grade 7 · Rampur</p>
+          </div>
+        </div>
+        <div class="sm-stats">
+          <div class="sm-stat"><strong id="sm-xp">0</strong><small>XP</small></div>
+          <div class="sm-stat"><strong id="sm-streak">0</strong><small>Streak</small></div>
+          <div class="sm-stat"><strong id="sm-avg">0%</strong><small>Avg Score</small></div>
+        </div>
+        <div class="sm-badges-row"><span>Badges: </span><span id="sm-badges">None</span></div>
+        <p class="sm-label">Subject Progress</p>
+        <div class="sm-subject-bars">
+          <div class="sm-bar-row"><span>Math</span>
+            <div class="sm-bar-track">
+              <div class="sm-bar-fill" id="sm-math-bar" style="width:0%;background:#FF6B35"></div>
+            </div><span id="sm-math-pct">0%</span>
+          </div>
+          <div class="sm-bar-row"><span>Science</span>
+            <div class="sm-bar-track">
+              <div class="sm-bar-fill" id="sm-sci-bar" style="width:0%;background:#00ACC1"></div>
+            </div><span id="sm-sci-pct">0%</span>
+          </div>
+          <div class="sm-bar-row"><span>Hindi</span>
+            <div class="sm-bar-track">
+              <div class="sm-bar-fill" id="sm-hindi-bar" style="width:0%;background:#E91E8C"></div>
+            </div><span id="sm-hindi-pct">0%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== WORKFLOW OVERLAY ===================== -->
+    <div id="workflow-overlay" class="workflow-overlay hidden">
+      <div class="wf-modal">
+        <button class="wf-close"
+          onclick="document.getElementById('workflow-overlay').classList.add('hidden')">✕</button>
+        <h3>EduKhel App Workflow</h3>
+        <div class="wf-diagram">
+          <div class="wf-node login">🔐 OTP Login</div>
+          <div class="wf-arrow">↓</div>
+          <div class="wf-fork">
+            <div class="wf-branch">
+              <div class="wf-node student">🎓 Student</div>
+              <div class="wf-arrow">↓</div>
+              <div class="wf-node">🏠 Home Dashboard</div>
+              <div class="wf-arrow">↓</div>
+              <div class="wf-node quiz-node">📝 Story Quiz</div>
+              <div class="wf-arrow">↓</div>
+              <div class="wf-node">🏆 Leaderboard</div>
+            </div>
+            <div class="wf-branch">
+              <div class="wf-node teacher">👩‍🏫 Teacher</div>
+              <div class="wf-arrow">↓</div>
+              <div class="wf-node">📊 Dashboard</div>
+              <div class="wf-arrow">↓</div>
+              <div class="wf-node">🤖 Gemini AI</div>
+            </div>
+          </div>
+          <div class="wf-arrow">↓</div>
+          <div class="wf-node sync">🔄 Offline → Sync</div>
+        </div>
+        <button class="btn-primary" onclick="document.getElementById('workflow-overlay').classList.add('hidden')">Got
+          it!</button>
+      </div>
+    </div>
+
+    <button class="wf-fab" onclick="document.getElementById('workflow-overlay').classList.remove('hidden')"
+      title="View App Workflow">🗺️</button>
+    <button class="teacher-fab" onclick="showScreen('screen-teacher-auth')" title="Quick: Teacher Login">👩‍🏫</button>
+
+  </div><!-- /#app-frame -->
+
+  <script>
+    // Quick teacher access for judges
+    function verifyAndGoTeacher() {
+      const session = EduKhelDB.getSession();
+      if (session && session.role === 'teacher') {
+        currentUser = session;
+        showScreen('screen-teacher');
+      } else {
+        // Load default teacher
+        currentUser = EduKhelDB.getUserByPhone('9000000001') || EduKhelDB.getTeachers()[0];
+        if (currentUser) {
+          EduKhelDB.setSession(currentUser);
+          selectedRole = 'teacher';
+          showScreen('screen-teacher');
+        } else {
+          showScreen('screen-login');
+        }
+      }
+    }
+  </script>
+
+  <script src="db.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
